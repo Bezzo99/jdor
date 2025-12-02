@@ -7,8 +7,11 @@ def clear_screen():
     print("Clearing screen...")
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    ascii_art = r"""
+    # Warna merah (ANSI escape code)
+    RED = "\033[31m"
+    RESET = "\033[0m"
 
+    ascii_art = r"""
 ███╗   ██╗ ██████╗ ██╗   ██╗ █████╗ ███╗   ██╗
 ████╗  ██║██╔═══██╗██║   ██║██╔══██╗████╗  ██║
 ██╔██╗ ██║██║   ██║██║   ██║███████║██╔██╗ ██║
@@ -22,10 +25,10 @@ def clear_screen():
 ╚════██║   ██║   ██║   ██║██╔══██╗██╔══╝
 ███████║   ██║   ╚██████╔╝██║  ██║███████╗
 ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
-
 """
 
-    print(ascii_art)
+    # Tambahkan warna merah
+    print(f"{RED}{ascii_art}{RESET}")
 
 def pause():
     input("\nPress enter to continue...")
