@@ -7,8 +7,6 @@ def clear_screen():
     print("Clearing screen...")
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    RED = "\033[1;31m"
-    WHITE = "\033[1;37m"
     RESET = "\033[0m"
 
     ascii_art = r"""
@@ -27,13 +25,23 @@ def clear_screen():
 ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
 """
 
-    # Tampilkan baris bergantian merah-putih
-    for i, line in enumerate(ascii_art.split("\n")):
+    lines = ascii_art.split("\n")
+
+    total = len(lines)
+    for i, line in enumerate(lines):
         if not line.strip():
             print()
             continue
-        color = RED if i % 2 == 0 else WHITE
-        print(f"{color}{line}{RESET}")
+
+        # Rasio posisi baris (0.0 → 1.0)
+        t = i / (total - 1)
+
+        # Gradasi merah → putih (RGB)
+        r = int(255)
+        g = int(255 * t)
+        b = int(255 * t)
+
+        color = f"\033[38;2;{r};{g};{b}m"
 
 def pause():
     input("\nPress enter to continue...")
