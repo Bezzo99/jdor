@@ -7,8 +7,8 @@ def clear_screen():
     print("Clearing screen...")
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    # Warna merah + bold (ANSI escape)
-    RED_BOLD = "\033[1;31m"
+    RED = "\033[1;31m"
+    WHITE = "\033[1;37m"
     RESET = "\033[0m"
 
     ascii_art = r"""
@@ -27,7 +27,13 @@ def clear_screen():
 ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
 """
 
-    print(f"{RED_BOLD}{ascii_art}{RESET}")
+    # Tampilkan baris bergantian merah-putih
+    for i, line in enumerate(ascii_art.split("\n")):
+        if not line.strip():
+            print()
+            continue
+        color = RED if i % 2 == 0 else WHITE
+        print(f"{color}{line}{RESET}")
 
 def pause():
     input("\nPress enter to continue...")
