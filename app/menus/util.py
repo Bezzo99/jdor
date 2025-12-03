@@ -3,25 +3,18 @@ import os
 import re
 import textwrap
 
-import os
-import time
-import random
-
-def clear_terminal():
+def clear_screen():
+    print("Clearing screen...")
     os.system('cls' if os.name == 'nt' else 'clear')
 
-import os
-import time
-import random
-
-def animate_fire_diagonal():
-    # Palet warna api (urutan untuk efek diagonal)
-    fire_palette = [
-        "\033[31m",   # merah gelap
-        "\033[91m",   # merah terang
-        "\033[33m",   # oranye
-        "\033[93m",   # kuning terang
-        "\033[97m",   # putih panas
+    # Gradient API (fire effect)
+    fire_colors = [
+        "\033[90m",  # abu gelap (asap)
+        "\033[31m",  # merah gelap
+        "\033[91m",  # merah terang
+        "\033[33m",  # oranye
+        "\033[93m",  # kuning terang
+        "\033[97m",  # putih panas
     ]
     RESET = "\033[0m"
 
@@ -43,32 +36,10 @@ def animate_fire_diagonal():
 
     lines = ascii_art.split("\n")
 
-    try:
-        frame = 0
-        while True:
-            clear_terminal()
-
-            for r, line in enumerate(lines):
-                colored_line = ""
-                for c, char in enumerate(line):
-                    if char != " ":
-                        # Indeks diagonal berdasarkan posisi + frame
-                        idx = (r + c + frame) % len(fire_palette)
-                        color = fire_palette[idx]
-                        colored_line += f"{color}{char}{RESET}"
-                    else:
-                        colored_line += " "
-                print(colored_line)
-
-            frame += 1
-            time.sleep(0.07)
-
-    except KeyboardInterrupt:
-        clear_terminal()
-        print("Animasi diagonal dihentikan.")
-
-# Jalankan animasi
-animate_fire_diagonal()
+    # Cetak per baris dengan warna gradient api
+    for i, line in enumerate(lines):
+        color = fire_colors[i % len(fire_colors)]
+        print(f"{color}{line}{RESET}")
 
 def pause():
     input("\nPress enter to continue...")
