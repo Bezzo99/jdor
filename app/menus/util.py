@@ -3,14 +3,21 @@ import os
 import re
 import textwrap
 
-import os
-import time
-import random
-
 def clear_screen():
+    print("Clearing screen...")
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def fire_logo():
+    # RED FIRE GLOW (merah menyala)
+    fire_colors = [
+        "\033[31m",  # merah gelap
+        "\033[91m",  # merah terang
+        "\033[33m",  # oranye api
+        "\033[93m",  # kuning menyala
+        "\033[97m",  # putih panas
+        "\033[91m",  # merah terang kembali
+    ]
+    RESET = "\033[0m"
+
     ascii_art = r"""
 ███╗   ██╗ ██████╗ ██╗   ██╗ █████╗ ███╗   ██╗
 ████╗  ██║██╔═══██╗██║   ██║██╔══██╗████╗  ██║
@@ -27,29 +34,12 @@ def fire_logo():
 ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
 """
 
-    # Warna api (merah → oranye → kuning → putih)
-    fire_colors = [
-        "\033[31m",  # merah
-        "\033[91m",  # merah terang
-        "\033[33m",  # oranye
-        "\033[93m",  # kuning terang
-        "\033[97m",  # putih panas
-    ]
-    RESET = "\033[0m"
-
     lines = ascii_art.split("\n")
 
-    # Loop animasi api
-    while True:
-        clear_screen()
-
-        for line in lines:
-            # Setiap baris diberi warna berbeda secara acak
-            color = random.choice(fire_colors)
-            print(f"{color}{line}{RESET}")
-
-        # Semakin kecil delay → efek api makin cepat
-        time.sleep(0.07)
+    # Cetak per baris dengan gradasi merah menyala
+    for i, line in enumerate(lines):
+        color = fire_colors[i % len(fire_colors)]
+        print(f"{color}{line}{RESET}")
 
 def pause():
     input("\nPress enter to continue...")
