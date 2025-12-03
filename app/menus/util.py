@@ -10,8 +10,12 @@ import random
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def animate_fire_logo():
-    # Warna API (dipilih acak tiap huruf)
+import os
+import time
+import random
+
+def animate_fire_diagonal():
+    # Palet warna api (urutan untuk efek diagonal)
     fire_palette = [
         "\033[31m",   # merah gelap
         "\033[91m",   # merah terang
@@ -40,26 +44,31 @@ def animate_fire_logo():
     lines = ascii_art.split("\n")
 
     try:
+        frame = 0
         while True:
             clear_terminal()
-            for line in lines:
+
+            for r, line in enumerate(lines):
                 colored_line = ""
-                for char in line:
+                for c, char in enumerate(line):
                     if char != " ":
-                        # Pilih warna api secara acak per huruf
-                        color = random.choice(fire_palette)
+                        # Indeks diagonal berdasarkan posisi + frame
+                        idx = (r + c + frame) % len(fire_palette)
+                        color = fire_palette[idx]
                         colored_line += f"{color}{char}{RESET}"
                     else:
                         colored_line += " "
                 print(colored_line)
 
-            time.sleep(0.08)  # kecepatan animasi
+            frame += 1
+            time.sleep(0.07)
+
     except KeyboardInterrupt:
         clear_terminal()
-        print("Animasi dihentikan.")
+        print("Animasi diagonal dihentikan.")
 
-# Jalankan animasi:
-animate_fire_logo()
+# Jalankan animasi
+animate_fire_diagonal()
 
 def pause():
     input("\nPress enter to continue...")
