@@ -44,16 +44,12 @@ def fire_logo():
         clear_screen()
 
         for line in lines:
-            color = random.choice(fire_colors)  # warna acak setiap frame
+            # Setiap baris diberi warna berbeda secara acak
+            color = random.choice(fire_colors)
             print(f"{color}{line}{RESET}")
 
-        time.sleep(0.07)  # semakin kecil → api lebih cepat
-
-# ======================
-#  JALANKAN ANIMASI API
-# ======================
-
-fire_logo()
+        # Semakin kecil delay → efek api makin cepat
+        time.sleep(0.07)
 
 def pause():
     input("\nPress enter to continue...")
