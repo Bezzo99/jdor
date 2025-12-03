@@ -3,16 +3,21 @@ import os
 import re
 import textwrap
 
-def clear_screen():
-    print("Clearing screen...")
+import os
+import time
+import random
+
+def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    # Daftar warna gradient (ANSI)
-    gradient_colors = [
+def animate_fire_logo():
+    # Warna API (dipilih acak tiap huruf)
+    fire_palette = [
         "\033[31m",   # merah gelap
         "\033[91m",   # merah terang
-        "\033[1;91m", # merah menyala + bold
-        "\033[97m",   # putih terang (cahaya)
+        "\033[33m",   # oranye
+        "\033[93m",   # kuning terang
+        "\033[97m",   # putih panas
     ]
     RESET = "\033[0m"
 
@@ -32,11 +37,29 @@ def clear_screen():
 ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
 """
 
-    # Cetak per baris dengan warna gradient
     lines = ascii_art.split("\n")
-    for i, line in enumerate(lines):
-        color = gradient_colors[i % len(gradient_colors)]
-        print(f"{color}{line}{RESET}")
+
+    try:
+        while True:
+            clear_terminal()
+            for line in lines:
+                colored_line = ""
+                for char in line:
+                    if char != " ":
+                        # Pilih warna api secara acak per huruf
+                        color = random.choice(fire_palette)
+                        colored_line += f"{color}{char}{RESET}"
+                    else:
+                        colored_line += " "
+                print(colored_line)
+
+            time.sleep(0.08)  # kecepatan animasi
+    except KeyboardInterrupt:
+        clear_terminal()
+        print("Animasi dihentikan.")
+
+# Jalankan animasi:
+animate_fire_logo()
 
 def pause():
     input("\nPress enter to continue...")
