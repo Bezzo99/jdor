@@ -7,14 +7,14 @@ def clear_screen():
     print("Clearing screen...")
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    # Gradient API (fire effect)
+    # NEON GLOW GRADIENT (sangat terang)
     fire_colors = [
-        "\033[90m",  # abu gelap (asap)
-        "\033[31m",  # merah gelap
-        "\033[91m",  # merah terang
-        "\033[33m",  # oranye
-        "\033[93m",  # kuning terang
-        "\033[97m",  # putih panas
+        "\033[96m",  # cyan neon
+        "\033[95m",  # magenta neon
+        "\033[94m",  # biru neon
+        "\033[97m",  # putih terang
+        "\033[95m",  # magenta neon
+        "\033[96m",  # cyan neon
     ]
     RESET = "\033[0m"
 
@@ -36,7 +36,7 @@ def clear_screen():
 
     lines = ascii_art.split("\n")
 
-    # Cetak per baris dengan warna gradient api
+    # Cetak per baris dengan gradasi neon terang
     for i, line in enumerate(lines):
         color = fire_colors[i % len(fire_colors)]
         print(f"{color}{line}{RESET}")
