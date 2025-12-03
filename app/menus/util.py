@@ -3,22 +3,14 @@ import os
 import re
 import textwrap
 
+import os
+import time
+import random
+
 def clear_screen():
-    print("Clearing screen...")
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    # Blink ON + warna api
-    BLINK = "\033[5m"
-    fire_colors = [
-        BLINK + "\033[31m",  # merah gelap
-        BLINK + "\033[91m",  # merah terang
-        BLINK + "\033[33m",  # oranye api
-        BLINK + "\033[93m",  # kuning menyala
-        BLINK + "\033[97m",  # putih panas
-        BLINK + "\033[91m",  # merah terang lagi
-    ]
-    RESET = "\033[0m"
-
+def fire_logo():
     ascii_art = r"""
 ███╗   ██╗ ██████╗ ██╗   ██╗ █████╗ ███╗   ██╗
 ████╗  ██║██╔═══██╗██║   ██║██╔══██╗████╗  ██║
@@ -35,12 +27,33 @@ def clear_screen():
 ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
 """
 
+    # Warna api (merah → oranye → kuning → putih)
+    fire_colors = [
+        "\033[31m",  # merah
+        "\033[91m",  # merah terang
+        "\033[33m",  # oranye
+        "\033[93m",  # kuning terang
+        "\033[97m",  # putih panas
+    ]
+    RESET = "\033[0m"
+
     lines = ascii_art.split("\n")
 
-    # Cetak dengan efek berkedip + gradasi api
-    for i, line in enumerate(lines):
-        color = fire_colors[i % len(fire_colors)]
-        print(f"{color}{line}{RESET}")
+    # Loop animasi api
+    while True:
+        clear_screen()
+
+        for line in lines:
+            color = random.choice(fire_colors)  # warna acak setiap frame
+            print(f"{color}{line}{RESET}")
+
+        time.sleep(0.07)  # semakin kecil → api lebih cepat
+
+# ======================
+#  JALANKAN ANIMASI API
+# ======================
+
+fire_logo()
 
 def pause():
     input("\nPress enter to continue...")
